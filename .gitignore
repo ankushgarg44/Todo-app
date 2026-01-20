@@ -1,0 +1,31 @@
+# Node
+node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Build output
+dist
+build
+
+# Logs
+*.log
+logs
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.sublime*
+
+# Cache & coverage
+.cache
+coverage
+
+# Misc
+bower_components

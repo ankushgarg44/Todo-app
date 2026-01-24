@@ -1,30 +1,39 @@
 import express from "express";
-import dotenv from "dotenv";
 import mongoose from "mongoose";
-import todoroute from "./routes/todo.route.js";
+import dotenv from "dotenv";
+import cors from "cors";
+import todoRoute from "../backend/routes/todo.route.js";
 import userRoute from "../backend/routes/user.route.js";
-dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+dotenv.config();
+
+const PORT = process.env.PORT || 4002;
 const DB_URI = process.env.MONGODB_URI;
 
+// middlewares
 app.use(express.json());
-app.use("/todo", todoroute);
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: ["Content-Type", "Authorization"], // Add other headers you want to allow here.
+  })
+);
+
+// Database connection code
+try {
+  await mongoose.connect(DB_URI);
+  console.log("Connected to MongoDB");
+} catch (error) {
+  console.log(error);
+}
+
+// routes
+app.use("/todo", todoRoute);
 app.use("/user", userRoute);
-// Database connection + server start
-const startServer = async () => {
-  try {
-    const conn = await mongoose.connect(DB_URI);
-    console.log("MongoDB Connected:", conn.connection.host);
 
-    app.listen(PORT, () => {
-      console.log(`Example app listening on port ${PORT}`);
-    });
-  } catch (error) {
-    console.error("MongoDB connection failed:", error.message);
-    process.exit(1);
-  }
-};
-
-startServer();
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

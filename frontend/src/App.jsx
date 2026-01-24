@@ -8,7 +8,6 @@ function App() {
   const token = localStorage.getItem("jwt");
   return (
     <div>
-      <h1>hello</h1>
       <Routes>
         <Route path="/"element={<Home /> }/>
         <Route path="/login" element={<Login />} />

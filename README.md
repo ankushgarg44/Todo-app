@@ -17,7 +17,7 @@ A full-stack Todo application built with MongoDB, Express.js, React, and Node.js
 
 ### Prerequisites
 - Node.js installed.
-- MongoDB connection string (Atlas or local).
+- MongoDB connection string (Atlas).
 
 ### Installation
 
@@ -66,4 +66,29 @@ A full-stack Todo application built with MongoDB, Express.js, React, and Node.js
     ```
     App runs on `http://localhost:5173`
 
+## Deployment (Vercel)
 
+This project is configured to be deployed as two separate projects on Vercel: one for the Backend (Serverless) and one for the Frontend.
+
+### 1. Backend Deployment
+1.  Push your code to GitHub.
+2.  Import the repository into Vercel.
+3.  **Root Directory**: Set this to \`backend\`.
+4.  **Environment Variables**:
+    - \`MONGODB_URI\`: Your MongoDB connection string.
+    - \`JWT_SECRET\`: A random string for security.
+    - \`FRONTEND_URL\`: Initially set to \`*\` or your planned frontend URL.
+5.  Deploy. Copy the assigned domain (e.g., \`https://your-api.vercel.app\`).
+
+### 2. Frontend Deployment
+1.  Import the **same** repository again into Vercel.
+2.  **Root Directory**: Set this to \`frontend\`.
+3.  **Environment Variables**:
+    - \`VITE_BACKEND_URL\`: Paste your **Backend** URL from the previous step (e.g., \`https://your-api.vercel.app\`).
+4.  Deploy. Copy the assigned domain (e.g., \`https://your-frontend.vercel.app\`).
+
+### 3. Final Configuration
+Go back to your **Backend** project URL settings on Vercel:
+1.  Edit the \`FRONTEND_URL\` environment variable.
+2.  Set it to your actual **Frontend** URL (e.g., \`https://your-frontend.vercel.app\`).
+3.  **Redeploy** the backend for changes to take effect.
